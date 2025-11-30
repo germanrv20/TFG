@@ -1,0 +1,2 @@
+drone_lap:drone_projection
+-DCATKIN_DEVEL_PREFIX=/home/germanrv/drone_ws/devel -DCMAKE_INSTALL_PREFIX=/home/germanrv/drone_ws/install -G Unix Makefiles
