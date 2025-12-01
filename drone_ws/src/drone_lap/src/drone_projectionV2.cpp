@@ -119,16 +119,28 @@ int main(int argc, char** argv)
     {
         ros::spinOnce();
 
-        // Cálculos de Transformación (igual que antes)
+        // Cálculos de Transformación 
         Eigen::Matrix4d Tm_d1 = Eigen::Matrix4d::Identity();
         Eigen::Matrix4d Tm_d2 = Eigen::Matrix4d::Identity();
 
-        if (d1_gz_received) Tm_d1 = poseGazeboToTransform(pose_d1_gz);
-        if (d2_gz_received) Tm_d2 = poseGazeboToTransform(pose_d2_gz);
+        if (d1_gz_received) {
+            Tm_d1 = poseGazeboToTransform(pose_d1_gz);
+        }
+
+        if (d2_gz_received) {
+            Tm_d2 = poseGazeboToTransform(pose_d2_gz);
+   
+        }
+        
 
         Eigen::Matrix4d Td1_m = invertTransform(Tm_d1); 
-        Eigen::Matrix4d Tc_d1 = getCameraTransform();   
+
+
+        Eigen::Matrix4d Tc_d1 = getCameraTransform();  
+
+
         Eigen::Matrix4d Tc_d2_flu = Tc_d1.inverse() * Td1_m * Tm_d2;
+
 
         // 1. Punto Matemático (Origen 0,0,0 del Drone 2)
         Eigen::Vector4d P_math_4d(0, 0, 0, 1); 
@@ -174,20 +186,16 @@ int main(int argc, char** argv)
                 cv::projectPoints(pts_3d, rvec, tvec, camera_matrix, dist_coeffs, pts_distorted);
                 
                 //  QUITAR DISTORSIÓN 
-                // Aquí convertimos los puntos distorsionados a puntos lineales ideales
                 std::vector<cv::Point2f> pts_undistorted;
                 
                 // cv::undistortPoints toma puntos, matriz K, coeffs D.
-                // IMPORTANTE: Los últimos dos parámetros (R, P) son clave.
-                // Si P = camera_matrix, devuelve coordenadas de píxel. Si P está vacío, devuelve normalizadas.
                 cv::undistortPoints(pts_distorted, pts_undistorted, camera_matrix, dist_coeffs, cv::noArray(), camera_matrix);
 
-                // Ahora tenemos:
                 // pts_distorted[0]   -> Punto REAL en imagen (curvado)
                 // pts_undistorted[0] -> Punto IDEAL lineal (como si la lente fuera perfecta)
 
-                cv::Point2d pt_math_dist = pts_distorted[0];     // Usamos el distorsionado para pintar sobre la imagen real
-                cv::Point2d pt_math_undist = pts_undistorted[0]; // Usamos este si quieres calcular error lineal puro
+                cv::Point2d pt_math_dist = pts_distorted[0];     // pintar sobre la imagen real
+                cv::Point2d pt_math_undist = pts_undistorted[0]; //  calcular error lineal puro
                 cv::Point2d pt_vis_dist = pts_distorted[1];
 
                 // Comprobamos límites
@@ -195,17 +203,14 @@ int main(int argc, char** argv)
                     pt_vis_dist.y >= 0 && pt_vis_dist.y < height) 
                 {
                     // CALCULAR ERROR
-                    // Normalmente para control visual sobre la imagen, usamos el punto DISTORSIONADO
-                    // porque es donde realmente está el objeto en los píxeles que vemos.
-                    // Pero si quieres usar el modelo lineal, usa pt_math_undist.
                     
                     error_x = center_pt.x - pt_math_undist.x; 
                     error_y = center_pt.y - pt_math_undist.y; 
                     error_distance = cv::norm(center_pt - pt_math_undist);
                     
                     // DIBUJAR
-                    cv::circle(cv_ptr->image, cv::Point((int)pt_vis_dist.x, (int)pt_vis_dist.y), 6, cv::Scalar(0, 0, 255), -1);
-                    cv::line(cv_ptr->image, center_pt, cv::Point((int)pt_vis_dist.x, (int)pt_vis_dist.y), cv::Scalar(255, 0, 0), 2);
+                    cv::circle(cv_ptr->image, cv::Point((int)pt_math_dist.x, (int)pt_math_dist.y), 6, cv::Scalar(0, 0, 255), -1);
+                    cv::line(cv_ptr->image, center_pt, cv::Point((int)pt_math_dist.x, (int)pt_math_dist.y), cv::Scalar(255, 0, 0), 2);
                     
                 
                 }
@@ -221,7 +226,7 @@ int main(int argc, char** argv)
         error_pub.publish(error_msg);
         
         if (error_distance > 0) {
-            ROS_INFO_THROTTLE(1.0, "Error Yaw: %.2f px", error_x);
+            ROS_INFO_THROTTLE(1.0, "Error X: %.2f px  Error Y: %.2f px", error_x, error_y);
         }
 
         rate.sleep();

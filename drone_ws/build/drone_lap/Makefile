@@ -68,6 +68,28 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
@@ -91,17 +113,6 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target test
 test:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
@@ -113,27 +124,16 @@ test/fast: test
 
 .PHONY : test/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
 
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
 
-.PHONY : list_install_components/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -288,36 +288,6 @@ mavros_msgs_generate_messages_nodejs/fast:
 .PHONY : mavros_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
-drone_lap/CMakeFiles/uuid_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/uuid_msgs_generate_messages_nodejs.dir/rule
-.PHONY : drone_lap/CMakeFiles/uuid_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-uuid_msgs_generate_messages_nodejs: drone_lap/CMakeFiles/uuid_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : uuid_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-uuid_msgs_generate_messages_nodejs/fast:
-	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/uuid_msgs_generate_messages_nodejs.dir/build.make drone_lap/CMakeFiles/uuid_msgs_generate_messages_nodejs.dir/build
-.PHONY : uuid_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-drone_lap/CMakeFiles/dron2_prueba.dir/rule:
-	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/dron2_prueba.dir/rule
-.PHONY : drone_lap/CMakeFiles/dron2_prueba.dir/rule
-
-# Convenience name for target.
-dron2_prueba: drone_lap/CMakeFiles/dron2_prueba.dir/rule
-
-.PHONY : dron2_prueba
-
-# fast build rule for target.
-dron2_prueba/fast:
-	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/dron2_prueba.dir/build.make drone_lap/CMakeFiles/dron2_prueba.dir/build
-.PHONY : dron2_prueba/fast
-
-# Convenience name for target.
 drone_lap/CMakeFiles/tf_generate_messages_lisp.dir/rule:
 	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/tf_generate_messages_lisp.dir/rule
 .PHONY : drone_lap/CMakeFiles/tf_generate_messages_lisp.dir/rule
@@ -348,19 +318,34 @@ mavros_msgs_generate_messages_lisp/fast:
 .PHONY : mavros_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
-drone_lap/CMakeFiles/mavros_msgs_generate_messages_eus.dir/rule:
-	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/mavros_msgs_generate_messages_eus.dir/rule
-.PHONY : drone_lap/CMakeFiles/mavros_msgs_generate_messages_eus.dir/rule
+drone_lap/CMakeFiles/uuid_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/uuid_msgs_generate_messages_nodejs.dir/rule
+.PHONY : drone_lap/CMakeFiles/uuid_msgs_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
-mavros_msgs_generate_messages_eus: drone_lap/CMakeFiles/mavros_msgs_generate_messages_eus.dir/rule
+uuid_msgs_generate_messages_nodejs: drone_lap/CMakeFiles/uuid_msgs_generate_messages_nodejs.dir/rule
 
-.PHONY : mavros_msgs_generate_messages_eus
+.PHONY : uuid_msgs_generate_messages_nodejs
 
 # fast build rule for target.
-mavros_msgs_generate_messages_eus/fast:
-	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/mavros_msgs_generate_messages_eus.dir/build.make drone_lap/CMakeFiles/mavros_msgs_generate_messages_eus.dir/build
-.PHONY : mavros_msgs_generate_messages_eus/fast
+uuid_msgs_generate_messages_nodejs/fast:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/uuid_msgs_generate_messages_nodejs.dir/build.make drone_lap/CMakeFiles/uuid_msgs_generate_messages_nodejs.dir/build
+.PHONY : uuid_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+drone_lap/CMakeFiles/dron2_prueba.dir/rule:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/dron2_prueba.dir/rule
+.PHONY : drone_lap/CMakeFiles/dron2_prueba.dir/rule
+
+# Convenience name for target.
+dron2_prueba: drone_lap/CMakeFiles/dron2_prueba.dir/rule
+
+.PHONY : dron2_prueba
+
+# fast build rule for target.
+dron2_prueba/fast:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/dron2_prueba.dir/build.make drone_lap/CMakeFiles/dron2_prueba.dir/build
+.PHONY : dron2_prueba/fast
 
 # Convenience name for target.
 drone_lap/CMakeFiles/drone2_360lap.dir/rule:
@@ -408,36 +393,6 @@ mavros_msgs_generate_messages_cpp/fast:
 .PHONY : mavros_msgs_generate_messages_cpp/fast
 
 # Convenience name for target.
-drone_lap/CMakeFiles/uuid_msgs_generate_messages_lisp.dir/rule:
-	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/uuid_msgs_generate_messages_lisp.dir/rule
-.PHONY : drone_lap/CMakeFiles/uuid_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-uuid_msgs_generate_messages_lisp: drone_lap/CMakeFiles/uuid_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : uuid_msgs_generate_messages_lisp
-
-# fast build rule for target.
-uuid_msgs_generate_messages_lisp/fast:
-	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/uuid_msgs_generate_messages_lisp.dir/build.make drone_lap/CMakeFiles/uuid_msgs_generate_messages_lisp.dir/build
-.PHONY : uuid_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-drone_lap/CMakeFiles/tf_generate_messages_cpp.dir/rule:
-	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/tf_generate_messages_cpp.dir/rule
-.PHONY : drone_lap/CMakeFiles/tf_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-tf_generate_messages_cpp: drone_lap/CMakeFiles/tf_generate_messages_cpp.dir/rule
-
-.PHONY : tf_generate_messages_cpp
-
-# fast build rule for target.
-tf_generate_messages_cpp/fast:
-	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/tf_generate_messages_cpp.dir/build.make drone_lap/CMakeFiles/tf_generate_messages_cpp.dir/build
-.PHONY : tf_generate_messages_cpp/fast
-
-# Convenience name for target.
 drone_lap/CMakeFiles/uuid_msgs_generate_messages_py.dir/rule:
 	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/uuid_msgs_generate_messages_py.dir/rule
 .PHONY : drone_lap/CMakeFiles/uuid_msgs_generate_messages_py.dir/rule
@@ -453,19 +408,19 @@ uuid_msgs_generate_messages_py/fast:
 .PHONY : uuid_msgs_generate_messages_py/fast
 
 # Convenience name for target.
-drone_lap/CMakeFiles/drone1_follower_pid_node.dir/rule:
-	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/drone1_follower_pid_node.dir/rule
-.PHONY : drone_lap/CMakeFiles/drone1_follower_pid_node.dir/rule
+drone_lap/CMakeFiles/tf_generate_messages_cpp.dir/rule:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/tf_generate_messages_cpp.dir/rule
+.PHONY : drone_lap/CMakeFiles/tf_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
-drone1_follower_pid_node: drone_lap/CMakeFiles/drone1_follower_pid_node.dir/rule
+tf_generate_messages_cpp: drone_lap/CMakeFiles/tf_generate_messages_cpp.dir/rule
 
-.PHONY : drone1_follower_pid_node
+.PHONY : tf_generate_messages_cpp
 
 # fast build rule for target.
-drone1_follower_pid_node/fast:
-	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_follower_pid_node.dir/build.make drone_lap/CMakeFiles/drone1_follower_pid_node.dir/build
-.PHONY : drone1_follower_pid_node/fast
+tf_generate_messages_cpp/fast:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/tf_generate_messages_cpp.dir/build.make drone_lap/CMakeFiles/tf_generate_messages_cpp.dir/build
+.PHONY : tf_generate_messages_cpp/fast
 
 # Convenience name for target.
 drone_lap/CMakeFiles/tf_generate_messages_eus.dir/rule:
@@ -498,6 +453,81 @@ tf_generate_messages_py/fast:
 .PHONY : tf_generate_messages_py/fast
 
 # Convenience name for target.
+drone_lap/CMakeFiles/drone1_pitch_pid_node.dir/rule:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/drone1_pitch_pid_node.dir/rule
+.PHONY : drone_lap/CMakeFiles/drone1_pitch_pid_node.dir/rule
+
+# Convenience name for target.
+drone1_pitch_pid_node: drone_lap/CMakeFiles/drone1_pitch_pid_node.dir/rule
+
+.PHONY : drone1_pitch_pid_node
+
+# fast build rule for target.
+drone1_pitch_pid_node/fast:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_pitch_pid_node.dir/build.make drone_lap/CMakeFiles/drone1_pitch_pid_node.dir/build
+.PHONY : drone1_pitch_pid_node/fast
+
+# Convenience name for target.
+drone_lap/CMakeFiles/drone1_follow_xy_pid.dir/rule:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/drone1_follow_xy_pid.dir/rule
+.PHONY : drone_lap/CMakeFiles/drone1_follow_xy_pid.dir/rule
+
+# Convenience name for target.
+drone1_follow_xy_pid: drone_lap/CMakeFiles/drone1_follow_xy_pid.dir/rule
+
+.PHONY : drone1_follow_xy_pid
+
+# fast build rule for target.
+drone1_follow_xy_pid/fast:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_follow_xy_pid.dir/build.make drone_lap/CMakeFiles/drone1_follow_xy_pid.dir/build
+.PHONY : drone1_follow_xy_pid/fast
+
+# Convenience name for target.
+drone_lap/CMakeFiles/uuid_msgs_generate_messages_lisp.dir/rule:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/uuid_msgs_generate_messages_lisp.dir/rule
+.PHONY : drone_lap/CMakeFiles/uuid_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+uuid_msgs_generate_messages_lisp: drone_lap/CMakeFiles/uuid_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : uuid_msgs_generate_messages_lisp
+
+# fast build rule for target.
+uuid_msgs_generate_messages_lisp/fast:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/uuid_msgs_generate_messages_lisp.dir/build.make drone_lap/CMakeFiles/uuid_msgs_generate_messages_lisp.dir/build
+.PHONY : uuid_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
+drone_lap/CMakeFiles/drone2_wavy_circle_node.dir/rule:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/drone2_wavy_circle_node.dir/rule
+.PHONY : drone_lap/CMakeFiles/drone2_wavy_circle_node.dir/rule
+
+# Convenience name for target.
+drone2_wavy_circle_node: drone_lap/CMakeFiles/drone2_wavy_circle_node.dir/rule
+
+.PHONY : drone2_wavy_circle_node
+
+# fast build rule for target.
+drone2_wavy_circle_node/fast:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone2_wavy_circle_node.dir/build.make drone_lap/CMakeFiles/drone2_wavy_circle_node.dir/build
+.PHONY : drone2_wavy_circle_node/fast
+
+# Convenience name for target.
+drone_lap/CMakeFiles/drone1_Yaw_pid_node.dir/rule:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/drone1_Yaw_pid_node.dir/rule
+.PHONY : drone_lap/CMakeFiles/drone1_Yaw_pid_node.dir/rule
+
+# Convenience name for target.
+drone1_Yaw_pid_node: drone_lap/CMakeFiles/drone1_Yaw_pid_node.dir/rule
+
+.PHONY : drone1_Yaw_pid_node
+
+# fast build rule for target.
+drone1_Yaw_pid_node/fast:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_Yaw_pid_node.dir/build.make drone_lap/CMakeFiles/drone1_Yaw_pid_node.dir/build
+.PHONY : drone1_Yaw_pid_node/fast
+
+# Convenience name for target.
 drone_lap/CMakeFiles/geographic_msgs_generate_messages_lisp.dir/rule:
 	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/geographic_msgs_generate_messages_lisp.dir/rule
 .PHONY : drone_lap/CMakeFiles/geographic_msgs_generate_messages_lisp.dir/rule
@@ -527,6 +557,51 @@ drone_lap_projection/fast:
 	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone_lap_projection.dir/build.make drone_lap/CMakeFiles/drone_lap_projection.dir/build
 .PHONY : drone_lap_projection/fast
 
+# Convenience name for target.
+drone_lap/CMakeFiles/mavros_msgs_generate_messages_eus.dir/rule:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/mavros_msgs_generate_messages_eus.dir/rule
+.PHONY : drone_lap/CMakeFiles/mavros_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+mavros_msgs_generate_messages_eus: drone_lap/CMakeFiles/mavros_msgs_generate_messages_eus.dir/rule
+
+.PHONY : mavros_msgs_generate_messages_eus
+
+# fast build rule for target.
+mavros_msgs_generate_messages_eus/fast:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/mavros_msgs_generate_messages_eus.dir/build.make drone_lap/CMakeFiles/mavros_msgs_generate_messages_eus.dir/build
+.PHONY : mavros_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
+drone_lap/CMakeFiles/drone1_vertical_pid_node.dir/rule:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/drone1_vertical_pid_node.dir/rule
+.PHONY : drone_lap/CMakeFiles/drone1_vertical_pid_node.dir/rule
+
+# Convenience name for target.
+drone1_vertical_pid_node: drone_lap/CMakeFiles/drone1_vertical_pid_node.dir/rule
+
+.PHONY : drone1_vertical_pid_node
+
+# fast build rule for target.
+drone1_vertical_pid_node/fast:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_vertical_pid_node.dir/build.make drone_lap/CMakeFiles/drone1_vertical_pid_node.dir/build
+.PHONY : drone1_vertical_pid_node/fast
+
+# Convenience name for target.
+drone_lap/CMakeFiles/drone2_spin_up_down_node.dir/rule:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f CMakeFiles/Makefile2 drone_lap/CMakeFiles/drone2_spin_up_down_node.dir/rule
+.PHONY : drone_lap/CMakeFiles/drone2_spin_up_down_node.dir/rule
+
+# Convenience name for target.
+drone2_spin_up_down_node: drone_lap/CMakeFiles/drone2_spin_up_down_node.dir/rule
+
+.PHONY : drone2_spin_up_down_node
+
+# fast build rule for target.
+drone2_spin_up_down_node/fast:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone2_spin_up_down_node.dir/build.make drone_lap/CMakeFiles/drone2_spin_up_down_node.dir/build
+.PHONY : drone2_spin_up_down_node/fast
+
 src/dron2_prueba.o: src/dron2_prueba.cpp.o
 
 .PHONY : src/dron2_prueba.o
@@ -554,32 +629,113 @@ src/dron2_prueba.cpp.s:
 	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/dron2_prueba.dir/build.make drone_lap/CMakeFiles/dron2_prueba.dir/src/dron2_prueba.cpp.s
 .PHONY : src/dron2_prueba.cpp.s
 
-src/drone1_follower_pid.o: src/drone1_follower_pid.cpp.o
+src/drone1_Pich_pid.o: src/drone1_Pich_pid.cpp.o
 
-.PHONY : src/drone1_follower_pid.o
+.PHONY : src/drone1_Pich_pid.o
 
 # target to build an object file
-src/drone1_follower_pid.cpp.o:
-	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_follower_pid_node.dir/build.make drone_lap/CMakeFiles/drone1_follower_pid_node.dir/src/drone1_follower_pid.cpp.o
-.PHONY : src/drone1_follower_pid.cpp.o
+src/drone1_Pich_pid.cpp.o:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_pitch_pid_node.dir/build.make drone_lap/CMakeFiles/drone1_pitch_pid_node.dir/src/drone1_Pich_pid.cpp.o
+.PHONY : src/drone1_Pich_pid.cpp.o
 
-src/drone1_follower_pid.i: src/drone1_follower_pid.cpp.i
+src/drone1_Pich_pid.i: src/drone1_Pich_pid.cpp.i
 
-.PHONY : src/drone1_follower_pid.i
+.PHONY : src/drone1_Pich_pid.i
 
 # target to preprocess a source file
-src/drone1_follower_pid.cpp.i:
-	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_follower_pid_node.dir/build.make drone_lap/CMakeFiles/drone1_follower_pid_node.dir/src/drone1_follower_pid.cpp.i
-.PHONY : src/drone1_follower_pid.cpp.i
+src/drone1_Pich_pid.cpp.i:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_pitch_pid_node.dir/build.make drone_lap/CMakeFiles/drone1_pitch_pid_node.dir/src/drone1_Pich_pid.cpp.i
+.PHONY : src/drone1_Pich_pid.cpp.i
 
-src/drone1_follower_pid.s: src/drone1_follower_pid.cpp.s
+src/drone1_Pich_pid.s: src/drone1_Pich_pid.cpp.s
 
-.PHONY : src/drone1_follower_pid.s
+.PHONY : src/drone1_Pich_pid.s
 
 # target to generate assembly for a file
-src/drone1_follower_pid.cpp.s:
-	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_follower_pid_node.dir/build.make drone_lap/CMakeFiles/drone1_follower_pid_node.dir/src/drone1_follower_pid.cpp.s
-.PHONY : src/drone1_follower_pid.cpp.s
+src/drone1_Pich_pid.cpp.s:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_pitch_pid_node.dir/build.make drone_lap/CMakeFiles/drone1_pitch_pid_node.dir/src/drone1_Pich_pid.cpp.s
+.PHONY : src/drone1_Pich_pid.cpp.s
+
+src/drone1_Yaw_pid.o: src/drone1_Yaw_pid.cpp.o
+
+.PHONY : src/drone1_Yaw_pid.o
+
+# target to build an object file
+src/drone1_Yaw_pid.cpp.o:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_Yaw_pid_node.dir/build.make drone_lap/CMakeFiles/drone1_Yaw_pid_node.dir/src/drone1_Yaw_pid.cpp.o
+.PHONY : src/drone1_Yaw_pid.cpp.o
+
+src/drone1_Yaw_pid.i: src/drone1_Yaw_pid.cpp.i
+
+.PHONY : src/drone1_Yaw_pid.i
+
+# target to preprocess a source file
+src/drone1_Yaw_pid.cpp.i:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_Yaw_pid_node.dir/build.make drone_lap/CMakeFiles/drone1_Yaw_pid_node.dir/src/drone1_Yaw_pid.cpp.i
+.PHONY : src/drone1_Yaw_pid.cpp.i
+
+src/drone1_Yaw_pid.s: src/drone1_Yaw_pid.cpp.s
+
+.PHONY : src/drone1_Yaw_pid.s
+
+# target to generate assembly for a file
+src/drone1_Yaw_pid.cpp.s:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_Yaw_pid_node.dir/build.make drone_lap/CMakeFiles/drone1_Yaw_pid_node.dir/src/drone1_Yaw_pid.cpp.s
+.PHONY : src/drone1_Yaw_pid.cpp.s
+
+src/drone1_follow_xy_pid.o: src/drone1_follow_xy_pid.cpp.o
+
+.PHONY : src/drone1_follow_xy_pid.o
+
+# target to build an object file
+src/drone1_follow_xy_pid.cpp.o:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_follow_xy_pid.dir/build.make drone_lap/CMakeFiles/drone1_follow_xy_pid.dir/src/drone1_follow_xy_pid.cpp.o
+.PHONY : src/drone1_follow_xy_pid.cpp.o
+
+src/drone1_follow_xy_pid.i: src/drone1_follow_xy_pid.cpp.i
+
+.PHONY : src/drone1_follow_xy_pid.i
+
+# target to preprocess a source file
+src/drone1_follow_xy_pid.cpp.i:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_follow_xy_pid.dir/build.make drone_lap/CMakeFiles/drone1_follow_xy_pid.dir/src/drone1_follow_xy_pid.cpp.i
+.PHONY : src/drone1_follow_xy_pid.cpp.i
+
+src/drone1_follow_xy_pid.s: src/drone1_follow_xy_pid.cpp.s
+
+.PHONY : src/drone1_follow_xy_pid.s
+
+# target to generate assembly for a file
+src/drone1_follow_xy_pid.cpp.s:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_follow_xy_pid.dir/build.make drone_lap/CMakeFiles/drone1_follow_xy_pid.dir/src/drone1_follow_xy_pid.cpp.s
+.PHONY : src/drone1_follow_xy_pid.cpp.s
+
+src/drone1_vertical_pid.o: src/drone1_vertical_pid.cpp.o
+
+.PHONY : src/drone1_vertical_pid.o
+
+# target to build an object file
+src/drone1_vertical_pid.cpp.o:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_vertical_pid_node.dir/build.make drone_lap/CMakeFiles/drone1_vertical_pid_node.dir/src/drone1_vertical_pid.cpp.o
+.PHONY : src/drone1_vertical_pid.cpp.o
+
+src/drone1_vertical_pid.i: src/drone1_vertical_pid.cpp.i
+
+.PHONY : src/drone1_vertical_pid.i
+
+# target to preprocess a source file
+src/drone1_vertical_pid.cpp.i:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_vertical_pid_node.dir/build.make drone_lap/CMakeFiles/drone1_vertical_pid_node.dir/src/drone1_vertical_pid.cpp.i
+.PHONY : src/drone1_vertical_pid.cpp.i
+
+src/drone1_vertical_pid.s: src/drone1_vertical_pid.cpp.s
+
+.PHONY : src/drone1_vertical_pid.s
+
+# target to generate assembly for a file
+src/drone1_vertical_pid.cpp.s:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone1_vertical_pid_node.dir/build.make drone_lap/CMakeFiles/drone1_vertical_pid_node.dir/src/drone1_vertical_pid.cpp.s
+.PHONY : src/drone1_vertical_pid.cpp.s
 
 src/drone2_360lap.o: src/drone2_360lap.cpp.o
 
@@ -607,6 +763,60 @@ src/drone2_360lap.s: src/drone2_360lap.cpp.s
 src/drone2_360lap.cpp.s:
 	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone2_360lap.dir/build.make drone_lap/CMakeFiles/drone2_360lap.dir/src/drone2_360lap.cpp.s
 .PHONY : src/drone2_360lap.cpp.s
+
+src/drone2_spin_up_down.o: src/drone2_spin_up_down.cpp.o
+
+.PHONY : src/drone2_spin_up_down.o
+
+# target to build an object file
+src/drone2_spin_up_down.cpp.o:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone2_spin_up_down_node.dir/build.make drone_lap/CMakeFiles/drone2_spin_up_down_node.dir/src/drone2_spin_up_down.cpp.o
+.PHONY : src/drone2_spin_up_down.cpp.o
+
+src/drone2_spin_up_down.i: src/drone2_spin_up_down.cpp.i
+
+.PHONY : src/drone2_spin_up_down.i
+
+# target to preprocess a source file
+src/drone2_spin_up_down.cpp.i:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone2_spin_up_down_node.dir/build.make drone_lap/CMakeFiles/drone2_spin_up_down_node.dir/src/drone2_spin_up_down.cpp.i
+.PHONY : src/drone2_spin_up_down.cpp.i
+
+src/drone2_spin_up_down.s: src/drone2_spin_up_down.cpp.s
+
+.PHONY : src/drone2_spin_up_down.s
+
+# target to generate assembly for a file
+src/drone2_spin_up_down.cpp.s:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone2_spin_up_down_node.dir/build.make drone_lap/CMakeFiles/drone2_spin_up_down_node.dir/src/drone2_spin_up_down.cpp.s
+.PHONY : src/drone2_spin_up_down.cpp.s
+
+src/drone2_wavy_circle.o: src/drone2_wavy_circle.cpp.o
+
+.PHONY : src/drone2_wavy_circle.o
+
+# target to build an object file
+src/drone2_wavy_circle.cpp.o:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone2_wavy_circle_node.dir/build.make drone_lap/CMakeFiles/drone2_wavy_circle_node.dir/src/drone2_wavy_circle.cpp.o
+.PHONY : src/drone2_wavy_circle.cpp.o
+
+src/drone2_wavy_circle.i: src/drone2_wavy_circle.cpp.i
+
+.PHONY : src/drone2_wavy_circle.i
+
+# target to preprocess a source file
+src/drone2_wavy_circle.cpp.i:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone2_wavy_circle_node.dir/build.make drone_lap/CMakeFiles/drone2_wavy_circle_node.dir/src/drone2_wavy_circle.cpp.i
+.PHONY : src/drone2_wavy_circle.cpp.i
+
+src/drone2_wavy_circle.s: src/drone2_wavy_circle.cpp.s
+
+.PHONY : src/drone2_wavy_circle.s
+
+# target to generate assembly for a file
+src/drone2_wavy_circle.cpp.s:
+	cd /home/germanrv/drone_ws/build && $(MAKE) -f drone_lap/CMakeFiles/drone2_wavy_circle_node.dir/build.make drone_lap/CMakeFiles/drone2_wavy_circle_node.dir/src/drone2_wavy_circle.cpp.s
+.PHONY : src/drone2_wavy_circle.cpp.s
 
 src/drone_projectionV2.o: src/drone_projectionV2.cpp.o
 
@@ -642,6 +852,8 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... install/local"
+	@echo "... install"
+	@echo "... list_install_components"
 	@echo "... geographic_msgs_generate_messages_nodejs"
 	@echo "... geographic_msgs_generate_messages_eus"
 	@echo "... mavros_msgs_generate_messages_py"
@@ -651,36 +863,54 @@ help:
 	@echo "... install/strip"
 	@echo "... geographic_msgs_generate_messages_cpp"
 	@echo "... mavros_msgs_generate_messages_nodejs"
-	@echo "... uuid_msgs_generate_messages_nodejs"
-	@echo "... dron2_prueba"
+	@echo "... edit_cache"
 	@echo "... tf_generate_messages_lisp"
 	@echo "... mavros_msgs_generate_messages_lisp"
-	@echo "... edit_cache"
-	@echo "... rebuild_cache"
-	@echo "... mavros_msgs_generate_messages_eus"
+	@echo "... uuid_msgs_generate_messages_nodejs"
+	@echo "... dron2_prueba"
 	@echo "... drone2_360lap"
 	@echo "... uuid_msgs_generate_messages_cpp"
 	@echo "... mavros_msgs_generate_messages_cpp"
-	@echo "... uuid_msgs_generate_messages_lisp"
-	@echo "... test"
-	@echo "... tf_generate_messages_cpp"
 	@echo "... uuid_msgs_generate_messages_py"
-	@echo "... drone1_follower_pid_node"
+	@echo "... tf_generate_messages_cpp"
 	@echo "... tf_generate_messages_eus"
 	@echo "... tf_generate_messages_py"
+	@echo "... drone1_pitch_pid_node"
+	@echo "... drone1_follow_xy_pid"
+	@echo "... test"
+	@echo "... uuid_msgs_generate_messages_lisp"
+	@echo "... drone2_wavy_circle_node"
+	@echo "... rebuild_cache"
+	@echo "... drone1_Yaw_pid_node"
 	@echo "... geographic_msgs_generate_messages_lisp"
 	@echo "... drone_lap_projection"
-	@echo "... list_install_components"
-	@echo "... install"
+	@echo "... mavros_msgs_generate_messages_eus"
+	@echo "... drone1_vertical_pid_node"
+	@echo "... drone2_spin_up_down_node"
 	@echo "... src/dron2_prueba.o"
 	@echo "... src/dron2_prueba.i"
 	@echo "... src/dron2_prueba.s"
-	@echo "... src/drone1_follower_pid.o"
-	@echo "... src/drone1_follower_pid.i"
-	@echo "... src/drone1_follower_pid.s"
+	@echo "... src/drone1_Pich_pid.o"
+	@echo "... src/drone1_Pich_pid.i"
+	@echo "... src/drone1_Pich_pid.s"
+	@echo "... src/drone1_Yaw_pid.o"
+	@echo "... src/drone1_Yaw_pid.i"
+	@echo "... src/drone1_Yaw_pid.s"
+	@echo "... src/drone1_follow_xy_pid.o"
+	@echo "... src/drone1_follow_xy_pid.i"
+	@echo "... src/drone1_follow_xy_pid.s"
+	@echo "... src/drone1_vertical_pid.o"
+	@echo "... src/drone1_vertical_pid.i"
+	@echo "... src/drone1_vertical_pid.s"
 	@echo "... src/drone2_360lap.o"
 	@echo "... src/drone2_360lap.i"
 	@echo "... src/drone2_360lap.s"
+	@echo "... src/drone2_spin_up_down.o"
+	@echo "... src/drone2_spin_up_down.i"
+	@echo "... src/drone2_spin_up_down.s"
+	@echo "... src/drone2_wavy_circle.o"
+	@echo "... src/drone2_wavy_circle.i"
+	@echo "... src/drone2_wavy_circle.s"
 	@echo "... src/drone_projectionV2.o"
 	@echo "... src/drone_projectionV2.i"
 	@echo "... src/drone_projectionV2.s"

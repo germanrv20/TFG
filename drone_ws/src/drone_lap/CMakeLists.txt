@@ -147,13 +147,48 @@ target_link_libraries(dron2_prueba
   ${EIGEN3_LIBRARIES}
 )
 
-# Crea el ejecutable para el controlador PID del drone 1
-add_executable(drone1_follower_pid_node src/drone1_follower_pid.cpp)
+add_executable(drone1_follow_xy_pid src/drone1_follow_xy_pid.cpp)
+target_link_libraries(drone1_follow_xy_pid ${catkin_LIBRARIES})
 
-# Enlaza las librerías necesarias (ROS)
-target_link_libraries(drone1_follower_pid_node
+
+add_executable(drone2_wavy_circle_node src/drone2_wavy_circle.cpp)
+
+target_link_libraries(drone2_wavy_circle_node
   ${catkin_LIBRARIES}
 )
+
+# Crea el ejecutable para el controlador PID del drone 1
+add_executable(drone1_Yaw_pid_node src/drone1_Yaw_pid.cpp)
+
+# Enlaza las librerías necesarias (ROS)
+target_link_libraries(drone1_Yaw_pid_node
+  ${catkin_LIBRARIES}
+)
+
+# Crea el ejecutable para el controlador PID del drone 1
+add_executable(drone1_vertical_pid_node src/drone1_vertical_pid.cpp)
+
+# Enlaza las librerías necesarias (ROS)
+target_link_libraries(drone1_vertical_pid_node
+  ${catkin_LIBRARIES}
+)
+
+
+# Crea el ejecutable para el controlador PID del drone 1
+add_executable(drone1_pitch_pid_node src/drone1_Pich_pid.cpp)
+
+# Enlaza las librerías necesarias (ROS)
+target_link_libraries(drone1_pitch_pid_node
+  ${catkin_LIBRARIES}
+)
+
+# Crea el ejecutable para el controlador PID del drone 1
+add_executable(drone2_spin_up_down_node src/drone2_spin_up_down.cpp)
+
+# Enlaza las librerías necesarias (ROS)
+target_link_libraries(drone2_spin_up_down_node
+  ${catkin_LIBRARIES}
+  )
 
 # Renombramos el ejecutable para que sea único en el workspace
 add_executable(drone_lap_projection src/drone_projectionV2.cpp)
